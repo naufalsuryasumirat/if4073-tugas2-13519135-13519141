@@ -1,23 +1,17 @@
+img = imread('img/butterfly.png');
 
-%{
-  Description: 
-  Output: 
-  Input: 
-%}
-% opt == 'gaussian', opt == 'mean' filters
-function blurred = conv_blur(mat, m_size, filt_opt)
-    blurred = mat;
-    if ~mod(m_size), m_size = m_size + 1; end
+% spatial blur image using 5x5 gaussian filter
+blurred = conv_blur(img, 5, 'gaussian');
+figure, imshow(blurred);
 
-    mask = zeros(m_size, m_size);
+% spatial blur image using 7x7 gaussian filter
+blurred = conv_blur(img, 7, 'gaussian');
+figure, imshow(blurred);
 
-    if filt_opt == 'gaussian'
-        % mask = generate_gaussian;
-    elseif filt_opt == 'mean'
-        mask = mask + 1;
-    else
-        return;
-    end
+% spatial blur image using 5x5 mean filter
+blurred = conv_blur(img, 5, 'mean');
+figure, imshow(blurred);
 
-    blurred = convolution(mat, mask, false);
-end
+% spatial blur image using 7x7 mean filter
+blurred = conv_blur(img, 7, 'mean');
+figure, imshow(blurred);

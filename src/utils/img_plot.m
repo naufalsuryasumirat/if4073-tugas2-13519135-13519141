@@ -1,47 +1,6 @@
 % Source code dari tugas 1 sebelumnya (13519135 dan 13519029)
 
 %{
-  Description: implementation of rgb values to grayscale values
-  Output: 2D matrix of size row(matrix), col(matrix), with grayscale
-    values using the formula 0.2989 * Red + 0.5870 * Green + 0.1140 * Blue
-  Input: 2D Matrix of n dimension n > 0
-%}
-function grayscale = rgb_to_grayscale(matrix)
-  [~, ~, dim] = size(matrix);
-  % if image is already in grayscale values
-  if dim == 1, grayscale = matrix; return, end
-
-  grayscale = matrix(:,:,1) * 0.2989 + matrix(:,:,2) * 0.587 + matrix(:,:,3) * 0.114;
-  grayscale = uint8(grayscale);
-end
-
-%{
-  Description: Calculates occurences of each pixel value for a given matrix
-  Output: Vector with 256 columns with values [0,255] of occurences
-  Input: 2D pixel matrix
-%}
-function occ = calc_occurences(matrix)
-  occ = zeros(1,256);
-  [row, col] = size(matrix);
-  for r = 1:row
-    for c = 1:col
-      occ(matrix(r,c)+1) = occ(matrix(r,c)+1) + 1;
-    end
-  end
-end
-
-%{
-  Description: Plots occurences of pixel using stem function
-  Output: Stem of pixel occurences
-  Input: Vector with 256 columns of pixel occurences
-%}
-function occurences_to_plot(occ)
-  occ(occ==0) = nan; % converts 0 to nan, to not show in stem plot
-  figure, stem(0:255, occ, 'MarkerSize', 0.1);
-  xlim([0 255]); % limit x value to in range of [0, 255]
-end
-
-%{
   Description: Plots stem of image rgb and/or grayscale values, with option to show images
   Output: Figures of plots and images
   Input: image matrix (grayscale/colored)
