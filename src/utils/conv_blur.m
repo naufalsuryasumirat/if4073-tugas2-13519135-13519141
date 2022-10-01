@@ -6,7 +6,7 @@
 % opt == 'gaussian', opt == 'mean' filters
 function blurred = conv_blur(mat, m_size, filt_opt)
     blurred = mat;
-    if ~mod(m_size, 2), m_size = m_size + 1; end % if even-sized kernel, add 1 to make it odd
+    if ~mod(m_size, 2), m_size = abs(m_size) + 1; end % if even-sized kernel, add 1 to make it odd
 
     mask = zeros(m_size, m_size); % init mask to be used for convolution
 

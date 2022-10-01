@@ -13,10 +13,11 @@ function convoluted = convolution(mat, mask, add)
     if m_row ~= m_col || ~(mod(m_row, 2)), return; end
 
     % center of kernel/mask
-    mc = double(uint8(m_row / 2) - 1);
+    % mc = double(uint8(m_row / 2) - 1);
+    mc = double(idivide(m_row, int8(2)));
 
     % pad array with 0s (Edge Handling: Constant)
-    mat = padarray(mat, [double(mc) double(mc)], 0, 'both');
+    mat = padarray(mat, [mc mc], 0, 'both');
     [row, col, dim] = size(mat); % size of matrix after padding with 0s
 
     % if sum of all elements in mask is > 1, divide each el by sum
@@ -26,7 +27,6 @@ function convoluted = convolution(mat, mask, add)
     for d=1:dim
         for i=mc+1:row-mc
             for j=mc+1:col-mc
-                % if  i > mc && i <= (row-mc) && j > mc && j <= (col-mc)
                 sliced = double(mat(i-mc:i+mc, j-mc:j+mc, d));
                 convoluted(i-mc, j-mc, d) = uint8(dot(sliced(:), mask(:)));
             end

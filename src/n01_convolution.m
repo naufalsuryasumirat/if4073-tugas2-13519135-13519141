@@ -5,8 +5,6 @@ blur = 13;
 % mean filter
 mask = ones(blur, blur);
 
-disp(mask);
-
 % actual
 figure, imshow(img);
 
