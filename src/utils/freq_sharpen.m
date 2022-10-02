@@ -39,6 +39,7 @@ function [sharpened, filtered] = freq_sharpen(mat, shrp_opt, cutoff, n)
     H = 1 - H; % high pass is 1 - low pass
     hpf = H .* f; % multiply f with 1-H (element-wise), 1-H to sharpen image
     hpf = real(ifftn(hpf)); % inverse n-dimension fourier transform (from freq to spatial)
-    filtered = hpf(1:row, 1:col, 1:dim); % cut off the padding to get sharpened image
-    sharpened = uint8(double(original) + filtered); % sharpened image is original + filtered
+    % convert filtered (double) to filtered (uint8)
+    filtered = im2uint8(hpf(1:row, 1:col, 1:dim)); % cut off the padding to get sharpened image
+    sharpened = original + filtered; % sharpened image is original + filtered
 end

@@ -37,5 +37,6 @@ function blurred = freq_blur(mat, blur_opt, cutoff, n)
 
     lpf = H .* f; % multiply f with H (element-wise)
     lpf = real(ifftn(lpf)); % inverse n-dimension fourier transform (from freq to spatial)
-    blurred = lpf(1:row, 1:col, 1:dim); % cut off the padding to get blurred image
+    % convert image (double) to image (uint8)
+    blurred = im2uint8(lpf(1:row, 1:col, 1:dim)); % cut off the padding to get blurred image
 end
