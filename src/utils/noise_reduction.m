@@ -14,7 +14,7 @@ function newimg = noise_reduction(img,type)
     end
 
     imgf = fftshift(fftn(im2double(img)));
-    figure; imagesc(log1p(abs(imgf))), colormap gray;
+    % figure; imagesc(log1p(abs(imgf))), colormap gray;
 
     if strcmp(type,'lena1')
         indexes = [
@@ -60,9 +60,68 @@ function newimg = noise_reduction(img,type)
             range = indexes(i,:);
             imgf(range(1):range(3),range(2):range(4)) = 0;
         end
+    elseif strcmp(type,'lena2')
+        indexes = [
+            1 122 106 122;
+            148 122 247 122;
+            155 1 157 102;
+            171 1 173 83;
+            185 1 189 60;
+            204 1 204 43;
+            219 27 222 27;
+            91 144 93 243;
+            75 165 77 243;
+            60 185 60 243;
+            44 201 44 243;
+            108 136 108 140;
+            1 106 247 106;
+            1 138 247 138;
+            1 169 247 170;
+            1 184 247 186;
+            1 201 247 201;
+            1 217 247 217;
+            1 27 247 27;
+            1 43 247 43;
+            1 58 247 60;
+            1 74 247 76;
+            245 1 247 3;
+            139 105 141 107;
+            123 1 125 58;
+            123 186 125 243;
+            58 183 64 187;
+        ];
+
+        for i=1:size(indexes,1)
+            range = indexes(i,:);
+            imgf(range(1):range(3),range(2):range(4)) = 0;
+        end
+
+        i = 247;
+        j = 1;
+        while (i>3 &j<240)
+            if ((i<100 | i>150) & (j<100 | j>150))
+                imgf(i-3:i,j:j+3) = 0;            
+            end
+                i = i-3;
+                j = j+3;
+        end
+    elseif strcmp(type,'building')
+        indexes = [
+            1 159 100 161;
+            140 159 237 161;
+            1 258 237 262;
+            1 58 237 62;
+            % 119 1 119 130;
+            % 119 200 119 318;
+        ];
+
+        for i=1:size(indexes,1)
+            range = indexes(i,:);
+            imgf(range(1):range(3),range(2):range(4)) = 0;
+        end
     end
 
-    figure; imagesc(log1p(abs(imgf))), colormap gray;
+    % figure; imagesc(log1p(abs(imgf))), colormap gray;
     
     newimg = im2uint8(real(ifftn(ifftshift(imgf)))); % inverse n-dimension fourier transform (from freq to spatial)
 
