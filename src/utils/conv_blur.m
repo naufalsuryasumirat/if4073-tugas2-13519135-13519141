@@ -1,17 +1,19 @@
 %{
   Description: Blur image using convolution method, with two filter options ('mean', and 'gaussian')
   Output: Blurred image through convolution
-  Input: Matrix image, size of kernel/mask, filter option ('mean', or 'gaussian')
+  Input: Matrix image, size of kernel/mask, sigma for generating gaussian kernel,
+    and filter option ('mean', or 'gaussian')
 %}
 % opt == 'gaussian', opt == 'mean' filters
-function blurred = conv_blur(mat, m_size, filt_opt)
+function blurred = conv_blur(mat, m_size, filt_opt, sigma)
     blurred = mat;
     if ~mod(m_size, 2), m_size = abs(m_size) + 1; end % if even-sized kernel, add 1 to make it odd
 
     mask = zeros(m_size, m_size); % init mask to be used for convolution
 
     if strcmp(filt_opt, 'gaussian')
-        mask = gauss_kernel(m_size, 1.6); % generate gaussian kernel using sigma of 1.6
+        if isnan(sigma) || ~sigma, sigma = 1.6; end
+        mask = gauss_kernel(m_size, sigma); % generate gaussian kernel using sigma of 1.6
     elseif strcmp(filt_opt, 'mean')
         mask = mask + 1; % add 1 to make it mean filter
     else
