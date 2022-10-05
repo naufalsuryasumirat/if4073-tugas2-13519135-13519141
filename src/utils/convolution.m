@@ -13,7 +13,6 @@ function convoluted = convolution(mat, mask, add)
     if m_row ~= m_col || ~(mod(m_row, 2)), return; end
 
     % center of kernel/mask
-    % mc = double(uint8(m_row / 2) - 1);
     mc = double(idivide(m_row, int8(2)));
 
     % pad array with 0s (Edge Handling: Constant)
