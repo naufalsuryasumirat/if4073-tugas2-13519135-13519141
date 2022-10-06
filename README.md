@@ -7,7 +7,7 @@
 Terdapat 2 cara untuk menggunakan aplikasi GUI.
 
 ### 1. Exe
-Untuk menggunakan aplikasi secara langsung, dapat menjalankan .exe yang telah disediakan di dalam folder exe/if4073_Tugas1_13519029_13519135/for_redistribution. Meginstall aplikasi dan menjalankan nya.
+Untuk menggunakan aplikasi secara langsung, dapat menjalankan .exe yang telah disediakan di dalam folder exe/if4073_tugas2_13519135_13519141. Meginstall aplikasi dan menjalankan nya.
 
 ### 2. App Designer
 Untuk menjalankan aplikasi menggunakan Matlab App Designer, buka file .mlapp yang berada di dalam folder app menggunakan Matlab App Designer dan jalankan dengan menekan tombol F5 atau Run secara manual.
